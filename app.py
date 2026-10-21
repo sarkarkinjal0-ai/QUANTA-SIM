@@ -11,6 +11,7 @@ import streamlit as st
 
 from optical_builder.utils.builder_tab import render_integrated_builder_tab
 from photon_noise_engine import PhotonNoiseEngine
+from quantum_animations import render_animations_lab
 
 
 # ============================================================
@@ -37,13 +38,14 @@ st.markdown(
     """
 )
 
-builder_tab, experiments_tab, qiskit_tab, about_tab, tutorial_tab = st.tabs(
+builder_tab, experiments_tab, qiskit_tab, about_tab, tutorial_tab, animations_tab = st.tabs(
     [
         "Circuit Builder",
         "Experiments & Noise",
         "Qiskit Comparison",
         "About",
         "Tutorial",
+        "Animations Lab",
     ]
 )
 
@@ -1001,3 +1003,11 @@ with tutorial_tab:
         "You are ready to explore QUANTA-SIM: establish a baseline, "
         "change one parameter at a time, and record your results."
     )
+
+
+# ============================================================
+# TAB 6: INTERACTIVE ANIMATIONS LAB
+# ============================================================
+
+with animations_tab:
+    render_animations_lab()
