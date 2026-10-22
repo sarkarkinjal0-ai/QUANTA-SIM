@@ -39,6 +39,7 @@ It connects three views of a quantum experiment:
 
 - [Project goals](#-project-goals)
 - [Features](#-features)
+- [Animations Lab](#-animations-lab)
 - [Explore the application](#-explore-the-application)
 - [Physics and mathematics](#-physics-and-mathematics)
 - [How a simulation runs](#-how-a-simulation-runs)
@@ -112,7 +113,19 @@ QUANTA-SIM is designed to make the relationship between optical hardware concept
 - Review the project's purpose, concepts, mathematical background, and software architecture.
 - Access the integration smoke-test control if available in the current app version.
 
-### 5. Tutorial
+### 5. Animations Lab
+
+Explore visual, step-by-step representations of key quantum-photonics concepts. The Animations Lab is designed to make component behavior and interference easier to follow alongside the numerical results.
+
+- **Beam splitter animation:** visualize how optical modes mix at a beam splitter.
+- **Phase shifter animation:** explore how changing a phase affects a mode's complex amplitude and later interference.
+- **Mach–Zehnder interferometer (MZI):** follow the two-path circuit and observe how relative phase changes the output behavior.
+- **Hong–Ou–Mandel (HOM) interference:** visualize the two-photon interference concept and its output behavior.
+- **Qiskit circuit visualization:** inspect a digital quantum-circuit representation alongside the project's optical simulation workflow.
+
+Animations are explanatory visualizations of the implemented model; they are not live laboratory measurements. Exact controls and visual details may vary with the deployed version.
+
+### 6. Tutorial
 
 - Use the in-app learning material to navigate the simulator and follow the experiment workflow.
 - Pair the tutorials below with the live application for a guided first session.
@@ -123,17 +136,42 @@ QUANTA-SIM is designed to make the relationship between optical hardware concept
 
 **Live app:** [QUANTA-SIM on Streamlit Community Cloud](https://sarkarkinjal0-ai-quanta-sim-app-ottsqz.streamlit.app/)
 
-The current interface is organized into five tabs:
+The current interface is organized into six tabs:
 
 | Tab | Main question | What to inspect |
 |---|---|---|
 | **Circuit Builder** | What transformation does this optical circuit implement? | Circuit schematic, unitary matrix, heatmap, output state. |
 | **Experiments & Noise** | How do phase, reflectivity, and imperfections affect interference? | MZI sweep, HOM results, visibility, sampled counts. |
 | **Qiskit Comparison** | How closely do the selected optical and digital models agree? | Probability distributions and comparison metrics. |
+| **Animations Lab** | How can quantum-photonics behavior be explored visually? | Beam splitter, phase shifter, MZI, HOM, and Qiskit-circuit animations. |
 | **ABOUT** | What concepts and modules make up the project? | Mathematical explanations, architecture, validation controls. |
 | **Tutorial** | How should a new user explore the app? | Guided workflow and usage tips. |
 
 > The live deployment may be updated independently of this document. If the interface differs, use the labels and controls shown in the deployed app.
+
+---
+
+## 🎞️ Animations Lab
+
+The **Animations Lab** adds a visual learning path to QUANTA-SIM. Use it to build intuition about optical components and interference before or after running the numerical experiments.
+
+| Animation | What to look for | Suggested exploration |
+|---|---|---|
+| **Beam splitter** | How an optical component mixes modes. | Watch the input/output representation and relate it to the component transformation. |
+| **Phase shifter** | How a phase parameter changes a mode's phase. | Change the phase, then consider why the effect becomes observable when paths interfere. |
+| **Mach–Zehnder interferometer (MZI)** | How two paths are split and recombined. | Vary the relative phase and compare the visual behavior with the MZI probability sweep. |
+| **Hong–Ou–Mandel (HOM) interference** | How two-photon amplitudes can produce correlated output behavior. | Relate the animation to the coincidence probabilities in Experiments & Noise. |
+| **Qiskit circuits** | How a digital circuit is represented for the comparison workflow. | Compare the circuit view with the optical experiment it is intended to model. |
+
+### Suggested workflow
+
+1. Open **Animations Lab** and choose a visualization.
+2. Observe the default behavior before changing parameters.
+3. Change one available control at a time and note what changes.
+4. Open **Circuit Builder** or **Experiments & Noise** to inspect the corresponding numerical model.
+5. If relevant, use **Qiskit Comparison** to inspect the digital benchmark and its comparison metrics.
+
+**Interpretation note:** animations help explain the model; they do not independently validate the physics, prove equivalence between models, or represent measurements from physical hardware.
 
 ---
 
@@ -341,6 +379,7 @@ This is a **conceptual dependency view**, not a complete import graph. Confirm i
 | Module or path | Role described by the project |
 |---|---|
 | `app.py` | Streamlit entry point; integrates the UI tabs and calls into the modules. |
+| `quantum_animations.py` | Animations Lab visualizations for selected optical components, MZI/HOM behavior, and Qiskit circuits. |
 | `core_engine.py` | Quantum state vectors, unitary evolution, beam-splitter/phase-shifter mathematics, and Born-rule probabilities. |
 | `optical_builder/` | Optical circuit builder, schematic, component controls, unitary display, and simulation controls. |
 | `physics_experiments.py` | Orchestrates MZI sweeps and HOM analyses. |
@@ -467,7 +506,7 @@ These exercises are designed to be performed in the app. Record your parameter s
 ### Tutorial 1 — Get familiar with the interface
 
 1. Open the [live app](https://sarkarkinjal0-ai-quanta-sim-app-ottsqz.streamlit.app/).
-2. Visit each of the five tabs: **Circuit Builder**, **Experiments & Noise**, **Qiskit Comparison**, **ABOUT**, and **Tutorial**.
+2. Visit the six tabs: **Circuit Builder**, **Experiments & Noise**, **Qiskit Comparison**, **Animations Lab**, **ABOUT**, and **Tutorial**.
 3. Identify which tab builds circuits, which runs experiments, and which performs digital comparisons.
 4. Start with the default settings before changing any parameters.
 
@@ -544,7 +583,18 @@ A noise toggle only represents the effects explicitly implemented by the model. 
 
 **Important:** A mismatch may result from different basis orderings, phase conventions, transformations, measurement mappings, or finite-shot fluctuations. A single metric does not prove the models are physically equivalent.
 
-### Tutorial 8 — Build a small, reproducible study
+### Tutorial 8 — Explore the Animations Lab
+
+1. Open **Animations Lab**.
+2. Explore the beam splitter and phase shifter visualizations.
+3. Watch the MZI animation and vary the relative phase if a control is available.
+4. Explore the HOM animation and relate it to the coincidence behavior discussed in the HOM experiment.
+5. Inspect the Qiskit-circuit visualization and compare its role with the optical workflow.
+6. Open **Experiments & Noise** or **Qiskit Comparison** to connect the visual explanation with numerical outputs.
+
+**Learning goal:** Build intuition for the optical and digital representations, then use the simulation results to investigate them quantitatively.
+
+### Tutorial 9 — Build a small, reproducible study
 
 Choose one question, for example: *How does a phase change affect the MZI output probabilities?*
 
@@ -609,7 +659,8 @@ This checks installed package requirements for conflicts; it does not test scien
 ### Manual UI regression checklist
 
 - [ ] App starts using `streamlit run app.py`.
-- [ ] All five tabs render.
+- [ ] All six tabs render.
+- [ ] Animations Lab loads the beam splitter, phase shifter, MZI, HOM, and Qiskit-circuit visualizations available in the deployed version.
 - [ ] Circuit Builder displays the expected controls and outputs.
 - [ ] MZI experiment runs and produces plots or results.
 - [ ] HOM experiment runs and displays its outputs.
@@ -774,7 +825,7 @@ The integrated project documentation attributes the following responsibilities:
 | Member 3 — Interferometry & Experiments | `physics_experiments.py` | MZI sweeps and HOM analysis orchestration. |
 | Member 4 — Photon & Noise Engine | `photon_noise_engine.py` | Photon evolution, two-photon/Fock-state outputs, selected imperfections, finite-shot sampling. |
 | Member 5 — Qiskit Integration | `qiskitintegration/` | Optical-to-circuit conversion, Aer simulation, benchmarks, and plots. |
-| Member 6 — UI, Visualization & Integration | `app.py` | Streamlit UI and integration of modules. |
+| Member 6 — UI, Visualization & Integration | `app.py`, `quantum_animations.py` | Streamlit UI, integrated application tabs, and Animations Lab visualizations. |
 
 These are project responsibility descriptions, not independent verification of authorship or scientific correctness.
 
@@ -824,6 +875,7 @@ The following are **possible future improvements**, not claims that they already
 - [ ] Export circuit configurations for later reuse.
 - [ ] Add clearer metadata to plots: parameter values, shot count, and model settings.
 - [ ] Expand accessibility and beginner-focused explanations.
+- [ ] Extend Animations Lab with additional parameter controls and visualizations where scientifically appropriate.
 - [ ] Add automated regression tests for optical-to-Qiskit outcome mapping.
 - [ ] Document tested Python and dependency versions for reproducible deployment.
 
