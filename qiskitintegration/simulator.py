@@ -1,4 +1,4 @@
-"""
+﻿"""
 QUANTA-SIM: Quantum Circuit Framework
 Module: qiskitintegration.simulator
 Role: 4/5 - Qiskit Integration (Digital Quantum Side)
@@ -19,6 +19,16 @@ import numpy as np
 import pandas as pd
 from qiskit import QuantumCircuit, transpile
 from qiskit.quantum_info import Statevector
+# Work around Linux OpenMP static TLS loading issues.
+import ctypes
+import sys
+
+if sys.platform.startswith("linux"):
+    try:
+        ctypes.CDLL("libgomp.so.1", mode=ctypes.RTLD_GLOBAL)
+    except OSError:
+        pass
+
 from qiskit_aer import AerSimulator
 
 from .converters import ModeEncoding, qubit_counts_to_mode_probabilities
@@ -233,3 +243,4 @@ class DigitalQuantumEngine:
                 "seed": run_seed
             }
         )
+
